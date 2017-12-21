@@ -1,0 +1,18 @@
+<script>
+    window.onload = function(){
+        $('#calendar').eCalendar({
+            events: [
+                @foreach($allEvents as $key)
+                {
+                    datetime: new Date(
+                        '{{ date('Y', strtotime($key['created_at'])) }}',
+                        '{{ date('m', strtotime($key['created_at'])) - 1 }}',
+                        '{{ date('d', strtotime($key['created_at'])) }}'
+                    ),
+                    url: '{{ route('events', ['sort_date' => date('Y-m-d', strtotime($key['created_at']))]) }}'
+                },
+                @endforeach
+            ]
+        });
+    };
+</script>
